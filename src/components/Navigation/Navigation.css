@@ -1,0 +1,8 @@
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+._pa2 {
+    padding-right: 25px;
+}

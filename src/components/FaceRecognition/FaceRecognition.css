@@ -1,0 +1,22 @@
+.bounding-box {
+    cursor: pointer;
+    position: absolute;
+    box-shadow: 0 0 0 3px #149df2 inset;
+}
+
+.bounding-box_concept {
+    width:70%;
+    height: 10%;
+    transform: translateY(-100%);
+    background: #149df2;
+    font-weight: 700;
+    padding: 1px 3px;
+    border-radius: 2px 2px 0 0;
+}
+
+span {
+    display: flex;
+    color: #fff;
+    font-size: 20px;
+    align-items: baseline;
+}
