@@ -34,6 +34,7 @@ class App extends Component {
     this.state = {
       input: '',
       imageUrl: '',
+      isValidInput: true,
       boxes: [],
       route: 'signIn',
       isSignedIn: false,
@@ -48,6 +49,19 @@ class App extends Component {
     }
 
     this.setState({ route: route });
+  }
+
+  onInputChange = (event) => {
+    this.setState({ input: event.target.value })
+  }
+
+  onButtonSubmit = () => {
+    this.setState({ imageUrl: this.state.input, isValidInput: true })
+
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, 
+      this.state.input, {video: false})
+    .then(resp => this.displayFaceBox(this.claculateFacesLocation(resp)))
+    .catch(() => this.setState({ isValidInput: false }));
   }
 
   claculateFacesLocation = (resp) => {
@@ -78,21 +92,10 @@ class App extends Component {
     this.setState({ boxes: boxes })
   }
 
-  onInputChange = (event) => {
-    this.setState({ input: event.target.value })
-  }
 
-  onButtonSubmit = () => {
-    this.setState({ imageUrl: this.state.input })
-
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, 
-      this.state.input, {video: false})
-    .then(resp => this.displayFaceBox(this.claculateFacesLocation(resp)))
-    .catch(() => console.log('Error!'));
-  }
 
   render() {
-    const { isSignedIn, imageUrl, route, boxes } = this.state;
+    const { isSignedIn, imageUrl, route, boxes, isValidInput } = this.state;
     return (
       <div>
         <Particles className='particles' params={particlesOptions} />
@@ -102,7 +105,7 @@ class App extends Component {
               <Logo/>
               <Rank/>
               <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-              <FaceRecognition boxes={boxes} imageUrl={imageUrl}/> 
+              <FaceRecognition boxes={boxes} imageUrl={imageUrl} isValidInput={isValidInput}/> 
             </div>
           : (
               route === 'signIn'
