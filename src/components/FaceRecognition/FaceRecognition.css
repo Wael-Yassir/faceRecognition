@@ -13,10 +13,3 @@
     padding: 1px 3px;
     border-radius: 2px 2px 0 0;
 }
-
-span {
-    display: flex;
-    color: #fff;
-    font-size: 20px;
-    align-items: baseline;
-}
